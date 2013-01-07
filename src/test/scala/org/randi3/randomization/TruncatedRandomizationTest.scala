@@ -11,7 +11,7 @@ import org.apache.commons.math3.random.MersenneTwister
 @RunWith(classOf[JUnitRunner])
 class TruncatedRandomizationTest extends FunSpec with MustMatchers {
 
-  import org.randi3.utility.TestingEnvironment._
+  import org.randi3.utility.TestingEnvironmentTruncated._
 
   describe("A truncated randomization method") {
 

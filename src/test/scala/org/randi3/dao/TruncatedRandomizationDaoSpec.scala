@@ -20,7 +20,7 @@ import org.randi3.model.Trial
 @RunWith(classOf[JUnitRunner])
 class TruncatedRandomizationDaoSpec extends FunSpec with MustMatchers with ShouldMatchers {
 
-  import org.randi3.utility.TestingEnvironment._
+  import org.randi3.utility.TestingEnvironmentTruncated._
 
   import driver.Implicit._
 

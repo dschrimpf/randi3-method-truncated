@@ -11,23 +11,25 @@ import org.scalaquery.session.Database
 import scalaz._
 
 import org.apache.commons.math3.random._
+import org.randi3.utility.{I18NHelper, I18NRandomization, AbstractSecurityUtil}
 
 
-class TruncatedRandomizationPlugin(database: Database, driver: ExtendedProfile) extends RandomizationMethodPlugin(database, driver) {
+class TruncatedRandomizationPlugin(database: Database, driver: ExtendedProfile, securityUtil: AbstractSecurityUtil) extends RandomizationMethodPlugin(database, driver, securityUtil) {
 
+  private val i18n = new I18NRandomization(I18NHelper.getLocalizationMap("truncatedRandomizationM", getClass.getClassLoader), securityUtil)
 
   val name = classOf[TruncatedRandomization].getName
 
-  val i18nName = name
+  def i18nName = i18n.text("name")
 
-  val description = "Truncated randomization method (ignores stratification options)"
+  def description = i18n.text("description")
 
   val canBeUsedWithStratification = false
 
   private val TruncatedRandomizationDao = new TruncatedRandomizationDao(database, driver)
 
-  def randomizationConfigurationOptions(): (List[ConfigurationType[Any]], List[Criterion[_ <: Any, Constraint[_ <: Any]]])= {
-    (Nil, Nil)
+  def randomizationConfigurationOptions(): (List[ConfigurationType[Any]], Map[String, List[Criterion[_ <: Any, Constraint[_ <: Any]]]])= {
+    (Nil, Map())
   }
 
   def getRandomizationConfigurations(id: Int): List[ConfigurationProperty[Any]] = {

@@ -38,8 +38,8 @@ class TruncatedRandomizationDao(database: Database, driver: ExtendedProfile) ext
       if (resultList.isEmpty) Success(None)
       else if (resultList.size == 1) {
         val rm = resultList(0)
-        if (rm._3 == classOf[TruncatedRandomization].getName()) {
-          Success(Some(new TruncatedRandomization(rm._1.get, 0)(deserializeRandomGenerator(rm._2))))
+        if (rm._4 == classOf[TruncatedRandomization].getName()) {
+          Success(Some(new TruncatedRandomization(rm._1.get, 0)(deserializeRandomGenerator(rm._3))))
         } else {
           Failure("Wrong plugin")
         }
@@ -66,7 +66,7 @@ class TruncatedRandomizationDao(database: Database, driver: ExtendedProfile) ext
   def update(randomizationMethod: TruncatedRandomization): Validation[String, TruncatedRandomization] = {
     database withSession {
       queryRandomizationMethodFromId(randomizationMethod.id).mutate { r =>
-        r.row = r.row.copy(_2 = generateBlob(randomizationMethod.random).get, _3 = randomizationMethod.getClass().getName())
+        r.row = r.row.copy(_3 = generateBlob(randomizationMethod.random).get, _4 = randomizationMethod.getClass().getName())
       }
     }
 

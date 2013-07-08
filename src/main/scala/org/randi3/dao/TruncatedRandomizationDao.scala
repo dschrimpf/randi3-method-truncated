@@ -1,14 +1,15 @@
 package org.randi3.dao
 
-import org.scalaquery.session._
-import org.scalaquery.session.Database.threadLocalSession
 
-import org.scalaquery.ql.extended.ExtendedProfile
+import org.randi3.schema.DatabaseSchema._
+
+import scala.slick.session.Database
+import Database.threadLocalSession
 
 import org.randi3.randomization.TruncatedRandomization
-
+import scala.slick.driver.ExtendedProfile
 import scalaz._
-import org.randi3.schema.DatabaseSchema
+import scalaz.Scalaz._
 
 
 class TruncatedRandomizationDao(database: Database, driver: ExtendedProfile) extends AbstractRandomizationMethodDao(database, driver) {
@@ -70,7 +71,7 @@ class TruncatedRandomizationDao(database: Database, driver: ExtendedProfile) ext
       }
     }
 
-    get(randomizationMethod.id).either match {
+    get(randomizationMethod.id).toEither match {
       case Left(x) => Failure(x)
       case Right(None) => Failure("Method not found")
       case Right(Some(randomizationMethod)) => Success(randomizationMethod)

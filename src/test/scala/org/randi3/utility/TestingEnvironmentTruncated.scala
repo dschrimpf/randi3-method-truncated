@@ -1,7 +1,7 @@
 package org.randi3.utility
 
-import org.scalaquery.ql.extended.ExtendedProfile
-import org.scalaquery.session.Database
+import scala.slick.driver.ExtendedProfile
+import scala.slick.session.Database
 import org.apache.commons.math3.random.MersenneTwister
 import org.randi3.model._
 import scala.collection.mutable.ListBuffer
@@ -13,7 +13,7 @@ import org.randi3.service.{TrialSiteServiceComponent, TrialServiceComponent, Use
 import org.randi3.configuration.{ConfigurationServiceComponent, ConfigurationValues, ConfigurationSchema, ConfigurationService}
 import org.randi3.schema.{LiquibaseUtil, DatabaseSchema}
 import DatabaseSchema._
-import org.scalaquery.session.Database
+import scala.slick.session.Database
 import org.scalaquery.meta.MTable
 
 

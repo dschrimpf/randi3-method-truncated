@@ -5,7 +5,7 @@ import org.apache.commons.math3.random.MersenneTwister
 import org.junit.runner.RunWith
 
 import org.scalaquery.ql._
-import org.scalaquery.session.Database.threadLocalSession
+import scala.slick.session.Database.threadLocalSession
 
 import org.scalatest.matchers.{ShouldMatchers, MustMatchers}
 import org.scalatest.FunSpec
@@ -18,7 +18,7 @@ import org.randi3.model.Trial
 
 
 @RunWith(classOf[JUnitRunner])
-class TruncatedRandomizationDaoSpec extends FunSpec with MustMatchers with ShouldMatchers {
+class TruncatedRandomizationDaoSpec extends FunSpec with MustMatchers {
 
   import org.randi3.utility.TestingEnvironmentTruncated._
 
@@ -32,7 +32,7 @@ class TruncatedRandomizationDaoSpec extends FunSpec with MustMatchers with Shoul
       val truncatedRandomization: TruncatedRandomization = new TruncatedRandomization()(random = new MersenneTwister)
       val trialDB: Trial = trialDao.get(trialDao.create(createTrial.copy(randomizationMethod = None)).toOption.get).toOption.get.get
 
-      val id = truncatedRandomizationDao.create(truncatedRandomization, trialDB.id).either match {
+      val id = truncatedRandomizationDao.create(truncatedRandomization, trialDB.id).toEither match {
         case Left(x) => fail(x)
         case Right(id) => id
       }

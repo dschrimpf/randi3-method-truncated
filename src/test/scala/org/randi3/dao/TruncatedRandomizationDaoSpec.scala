@@ -3,11 +3,10 @@ package org.org.randi3.dao
 import org.apache.commons.math3.random.MersenneTwister
 
 import org.junit.runner.RunWith
-
-import org.scalaquery.ql._
+import scala.slick.lifted.Query
 import scala.slick.session.Database.threadLocalSession
 
-import org.scalatest.matchers.{ShouldMatchers, MustMatchers}
+import org.scalatest.matchers.{MustMatchers, ShouldMatchers}
 import org.scalatest.FunSpec
 import org.scalatest.junit.JUnitRunner
 import scala.Left

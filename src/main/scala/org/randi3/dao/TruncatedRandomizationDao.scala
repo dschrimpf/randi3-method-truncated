@@ -5,11 +5,11 @@ import org.randi3.schema.DatabaseSchema._
 
 import scala.slick.session.Database
 import Database.threadLocalSession
-
 import org.randi3.randomization.TruncatedRandomization
 import scala.slick.driver.ExtendedProfile
 import scalaz._
 import scalaz.Scalaz._
+import org.randi3.schema.DatabaseSchema
 
 
 class TruncatedRandomizationDao(database: Database, driver: ExtendedProfile) extends AbstractRandomizationMethodDao(database, driver) {

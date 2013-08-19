@@ -14,7 +14,6 @@ import org.randi3.configuration.{ConfigurationServiceComponent, ConfigurationVal
 import org.randi3.schema.{LiquibaseUtil, DatabaseSchema}
 import DatabaseSchema._
 import scala.slick.session.Database
-import org.scalaquery.meta.MTable
 
 
 object TestingEnvironmentTruncated extends TestingEnvironment {

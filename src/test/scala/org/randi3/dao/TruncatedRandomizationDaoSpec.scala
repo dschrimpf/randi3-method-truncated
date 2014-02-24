@@ -28,6 +28,10 @@ class TruncatedRandomizationDaoSpec extends FunSpec with MustMatchers {
   describe("TruncatedRandomizationDao create method") {
 
     it("should be able to create a new truncated randomization method") {
+    database withSession {
+      val randomizationMethodsBefore =  Query(RandomizationMethods).list
+      val countRandomizationeMethodsBefore = randomizationMethodsBefore.size
+      
       val truncatedRandomization: TruncatedRandomization = new TruncatedRandomization()(random = new MersenneTwister)
       val trialDB: Trial = trialDao.get(trialDao.create(createTrial.copy(randomizationMethod = None)).toOption.get).toOption.get.get
 
@@ -36,11 +40,12 @@ class TruncatedRandomizationDaoSpec extends FunSpec with MustMatchers {
         case Right(id) => id
       }
 
-      database withSession {
+ 
         val allRandomizationMethods = Query(RandomizationMethods).list
-        allRandomizationMethods.size must be(1)
-        allRandomizationMethods.head._4 must be(classOf[TruncatedRandomization].getName)
-
+        allRandomizationMethods.size must be(countRandomizationeMethodsBefore + 1)
+        val newRandomizationMethod = allRandomizationMethods.filter(method => !randomizationMethodsBefore.map(_._1).contains(method._1) )
+        newRandomizationMethod.size must be(1)
+        newRandomizationMethod.head._4 must be(classOf[TruncatedRandomization].getName)
       }
     }
 
